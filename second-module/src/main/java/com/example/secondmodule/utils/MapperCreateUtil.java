@@ -21,15 +21,15 @@ public class MapperCreateUtil {
 
     public static void main(String[] args) throws IOException {
         setConstantMap(Yuan.class);
-        buildXML(Yuan.class,GardenDaoImpl.class);
+        buildXML(Yuan.class, "123");
     }
 
-    public static void buildXML(Class entity, Class dao) throws IOException {
+    public static void buildXML(Class entity, String dao) throws IOException {
         resultName = entity.getSimpleName()+"Map";
         if (tableName == null) {
             tableName = getConstant(entity.getSimpleName());
         }
-        daoUrl = dao.getName();
+        daoUrl = dao;
         System.out.println(entity.getClassLoader().toString());
         Document document = DocumentHelper.createDocument();
         document.addDocType("mapper", "-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd", null);
@@ -189,7 +189,7 @@ public class MapperCreateUtil {
     }
 
 
-    public void buildXML(Class entity, Class dao, String tableName) throws IOException {
+    public void buildXML(Class entity, String dao, String tableName) throws IOException {
         this.tableName = tableName;
         buildXML(entity, dao);
     }
