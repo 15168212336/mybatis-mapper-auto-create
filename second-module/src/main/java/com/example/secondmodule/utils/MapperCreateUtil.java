@@ -9,6 +9,7 @@ import org.dom4j.io.XMLWriter;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class MapperCreateUtil {
@@ -20,8 +21,16 @@ public class MapperCreateUtil {
     private static List<Field> fieldList = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
-        setConstantMap(Yuan.class);
-        buildXML(Yuan.class, "123");
+//        setConstantMap(ChannelType.class);
+//        buildXML(ChannelType.class, "cn.com.payment.order.dao.impl.ChannelTypeDaoImpl");
+        setConstantMap(OrderDetail.class);
+        buildXML(OrderDetail.class, "cn.com.payment.order.dao.impl.ChannelTypeDaoImpl");
+//        setConstantMap(PayChannel.class);
+//        buildXML(PayChannel.class, "cn.com.payment.order.dao.impl.ChannelTypeDaoImpl");
+//        setConstantMap(PayeeOnline.class);
+//        buildXML(PayeeOnline.class, "cn.com.payment.order.dao.impl.ChannelTypeDaoImpl");
+//        setConstantMap(SysSetting.class);
+//        buildXML(SysSetting.class, "cn.com.payment.order.dao.impl.ChannelTypeDaoImpl");
     }
 
     public static void buildXML(Class entity, String dao) throws IOException {
@@ -88,6 +97,12 @@ public class MapperCreateUtil {
             }
             if (field.getType() == Byte.class || field.getType() == byte.class) {
                 spliceSql(result,condition,insertFrontConditionSql,insertBehindConditionSql,updateConditionSql,field,"TINYINT");
+            }
+            if (field.getType() == Boolean.class || field.getType() == boolean.class) {
+                spliceSql(result,condition,insertFrontConditionSql,insertBehindConditionSql,updateConditionSql,field,"BOOLEAN");
+            }
+            if (field.getType() == BigDecimal.class) {
+                spliceSql(result,condition,insertFrontConditionSql,insertBehindConditionSql,updateConditionSql,field,"DECIMAL");
             }
         }
 
